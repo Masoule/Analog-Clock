@@ -57,32 +57,27 @@
 
     .hand {
       width:50%;
-      height:8px;
       background:#bec6d3;
       border-radius: 30%;
       position: absolute;
       top:50%;
       transform-origin: 100%; /* rotate along the right side rather than center */ 
       transform: rotate(90deg); /* offset to start at 12oclock */
-      transition: all 0.1s;
-      transition-timing-function: cubic-bezier(0.1, 2.5, 0.5, 1);
+      transition: all 0.07s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.6, 1);
     }
 
     .sec-hand {
+      background-color: red;
       height: 4px;
-      transform: translateY(-2px); /* 1/2 the height of the hand */
     }
     
     .min-hand {
       height: 8px;
-      transform: translateY(-4px); /* 1/2 the height of the hand */
     }
 
     .hr-hand {
       height: 12px;
-      background-color: red;
-      transform: translateY(-6px); /* 1/2 the height of the hand */
-
     }
     
     
@@ -97,21 +92,19 @@
       const now = new Date();
       const sec = now.getSeconds();
       const secDeg = sec * 6 + 90; 
-      secHand.style.transform = `rotate(${secDeg}deg)`;
+      secHand.style.transform = `translateY(-2px) rotate(${secDeg}deg)`;
       
       const min = now.getMinutes();
-      const minDeg = min * 6 + 90; 
-      minHand.style.transform = `rotate(${minDeg}deg)`;
+      const minDeg = ( min + sec / 60) * 6 + 90; 
+      minHand.style.transform = `translateY(-4px) rotate(${minDeg}deg) scale(0.95, 1)`;
       
       const hr = now.getHours() % 12;
-      const hrDeg = hr/12 * 360 + 90; 
-      console.log(hr, hrDeg)
-      hrHand.style.transform = `rotate(${hrDeg}deg)`;
-      
+      const hrDeg = ( hr + min / 60) * 30 + 90; 
+      hrHand.style.transform = `translateY(-6px) rotate(${hrDeg}deg) scale(0.85, 1)`;  
     }
 
-    setInterval(setTime, 1000);
-    
+    setInterval(setTime, 1000);  
+    setDate();  
   </script>
 </body>
 </html>
