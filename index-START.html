@@ -53,7 +53,6 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transform: translateY(-4px); /* 1/2 the height of the hand */
     }
 
     .hand {
@@ -70,8 +69,22 @@
     }
 
     .sec-hand {
-      
+      height: 4px;
+      transform: translateY(-2px); /* 1/2 the height of the hand */
     }
+    
+    .min-hand {
+      height: 8px;
+      transform: translateY(-4px); /* 1/2 the height of the hand */
+    }
+
+    .hr-hand {
+      height: 12px;
+      background-color: red;
+      transform: translateY(-6px); /* 1/2 the height of the hand */
+
+    }
+    
     
   </style>
 
@@ -79,15 +92,21 @@
     const secHand = document.querySelector('.sec-hand')
     const minHand = document.querySelector('.min-hand')
     const hrHand = document.querySelector('.hr-hand')
-    
+
     function setTime () {
       const now = new Date();
       const sec = now.getSeconds();
+      const secDeg = sec * 6 + 90; 
+      secHand.style.transform = `rotate(${secDeg}deg)`;
+      
       const min = now.getMinutes();
-      const secDeg = sec * 6; 
-      const minDeg = min * 6; 
-      secHand.style.transform = `rotate(${secDeg}deg)`
-      minHand.style.transform = `rotate(${minDeg}deg)`
+      const minDeg = min * 6 + 90; 
+      minHand.style.transform = `rotate(${minDeg}deg)`;
+      
+      const hr = now.getHours() % 12;
+      const hrDeg = hr/12 * 360 + 90; 
+      console.log(hr, hrDeg)
+      hrHand.style.transform = `rotate(${hrDeg}deg)`;
       
     }
 
